@@ -1,0 +1,41 @@
+'use strict'
+
+const perplex = require('perplex')
+
+module.exports = function (s) {
+	return perplex(s)
+		.token('(', /\(/)
+		.token(')', /\)/)
+		.token('<', /</)
+		.token('>', />/)
+		.token('{', /\{/)
+		.token('}', /\}/)
+		.token('=', /=/)
+		.token('.', /\./)
+		.token('*', /\*/)
+		.token(':', /:/)
+		.token('?', /\?/)
+		.token(';', /;/)
+
+		.token('any', /any/)
+		.token('as', /as/)
+		.token('declare', /declare/)
+		.token('export', /export/)
+		.token('extends', /extends/)
+		.token('from', /from/)
+		.token('function', /function/)
+		.token('import', /import/)
+		.token('interface', /interface/)
+		.token('namespace', /namespace/)
+		.token('module', /module/)
+		.token('typeof', /typeof/)
+		.token('var', /var/)
+
+		.token('ID', /[A-Za-z0-9_$]+/)
+		.token('STRING', /"(?:\\"|[^"\r\n])*"/)
+		.token('REFERENCE_COMMENT', /\/\/\/\s*<reference\s*path=["']([^'"]*)["']\s+\/>[^\r\n]*/)
+		.token('LF', /\r?\n/)
+		.token('$SKIP_SINGLE_LINE_COMMENT', /\/\/[^\r\n]*/)
+		.token('$SKIP_MULTI_LINE_COMMENT', /\/\*(?:.|[\r\n])*?\*\//)
+		.token('$SKIP_WHITESPACE', /\s+/)
+}
