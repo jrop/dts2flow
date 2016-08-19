@@ -4,8 +4,9 @@
   "description": "",
   "main": "src/main/index.js",
   "scripts": {
+    "coverage": "istanbul cover _mocha src/test/index.js",
     "lint": "eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha src/test/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,8 @@
     "perplex": "^0.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.3.1"
+    "eslint": "^3.3.1",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.2"
   }
 }
