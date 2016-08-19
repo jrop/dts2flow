@@ -3,17 +3,29 @@
 const generics = require('./generics')
 
 //
-// Something.SomethingElse<T, U, V>
-// TODO: Some.Type<T, U> & { anonymous: any }
-// TODO: { anonymous: any }
-// TODO: [] suffix
-// TODO: alternatives: number|boolean
+// Something.SomethingElse<T, U, V> | boolean[] | any
 //
 module.exports = function type(lexer) {
-	let _typeof = false
+	const alternatives = [ ]
+
+	do {
+		alternatives.push(oneType(lexer))
+		if (lexer.peek().type != '|')
+			break
+		lexer.expect('|')
+	} while (true)
+
+	return { type: 'type', alternatives }
+}
+
+//
+// TODO: Some.Type<T, U> & { anonymous: any }
+// TODO: { anonymous: any }
+//
+function oneType(lexer) {
 	if (lexer.peek().type == 'typeof') {
-		_typeof = true
-		lexer.next()
+		lexer.expect('typeof')
+		return { type: 'typeof', target: oneType(lexer) }
 	}
 
 	let id = lexer.expect('ID').match
@@ -25,5 +37,13 @@ module.exports = function type(lexer) {
 	}
 
 	id += generics(lexer)
-	return _typeof ? { type: 'typeof', target: id } : id
+
+	let array = false
+	if (lexer.peek().type == '[') {
+		array = true
+		lexer.expect('[')
+		lexer.expect(']')
+	}
+
+	return { type: 'type-id', id, array }
 }
