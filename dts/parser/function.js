@@ -1,8 +1,8 @@
 'use strict'
 
-const type = require('./type')
-
 function func(lexer) {
+	const type = require('./type')
+
 	lexer.expect('function')
 	const funId = lexer.expect('ID').match
 	const params = func.parameters(lexer)
@@ -16,6 +16,8 @@ function func(lexer) {
 // (optional?: any, ...more: number)
 //
 function parameters(lexer) {
+	const type = require('./type')
+
 	const params = [ ]
 	lexer.expect('(')
 

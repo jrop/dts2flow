@@ -4,7 +4,7 @@ const func = require('./function')
 const generics = require('./generics')
 const type = require('./type')
 
-module.exports = function (lexer) {
+function _interface(lexer) {
 	lexer.expect('interface')
 
 	const iId = lexer.expect('ID').match + generics(lexer)
@@ -34,6 +34,12 @@ function members(lexer) {
 
 function member(lexer) {
 	const nxt = lexer.peek()
+
+	function terminate() {
+		if (lexer.peek().type != '}')
+			lexer.expect(';') // only expect ';' if there are more members
+	}
+
 	if (nxt.type == '(') {
 		//
 		// self-invocation
@@ -42,8 +48,8 @@ function member(lexer) {
 		const parameters = func.parameters(lexer)
 		lexer.expect(':')
 		const returns = type(lexer)
-		lexer.expect(';')
 
+		terminate()
 		return { type: 'call', parameters, returns }
 	} else {
 		//
@@ -57,16 +63,19 @@ function member(lexer) {
 			const parameters = func.parameters(lexer)
 			lexer.expect(':')
 			const returns = type(lexer)
-			lexer.expect(';')
 
+			terminate()
 			return { type: 'method', id, generics: _generics, parameters, returns }
 		} else {
 			// property definition
 			lexer.expect(':')
 			const returns = type(lexer)
-			lexer.expect(';')
 
+			terminate()
 			return { type: 'property', id, returns }
 		}
 	}
 }
+
+_interface.members = members
+module.exports = _interface

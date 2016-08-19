@@ -1,11 +1,12 @@
 'use strict'
 
+const func = require('./function')
 const generics = require('./generics')
 
 //
 // Something.SomethingElse<T, U, V> | boolean[] | any
 //
-module.exports = function type(lexer) {
+function type(lexer) {
 	const alternatives = [ ]
 
 	do {
@@ -20,12 +21,18 @@ module.exports = function type(lexer) {
 
 //
 // TODO: Some.Type<T, U> & { anonymous: any }
-// TODO: { anonymous: any }
 //
 function oneType(lexer) {
 	if (lexer.peek().type == 'typeof') {
 		lexer.expect('typeof')
 		return { type: 'typeof', target: oneType(lexer) }
+	} else if (lexer.peek().type == '(') {
+		const parameters = func.parameters(lexer)
+		lexer.expect('=>')
+		const returns = type(lexer)
+		return { type: 'function-type', parameters, returns }
+	} else if (lexer.peek().type == '{') {
+		return anonymousType(lexer)
 	}
 
 	let id = lexer.expect('ID').match
@@ -47,3 +54,13 @@ function oneType(lexer) {
 
 	return { type: 'type-id', id, array }
 }
+
+function anonymousType(lexer) {
+	const _interface = require('./interface')
+	lexer.expect('{')
+	const members = _interface.members(lexer)
+	lexer.expect('}')
+	return { type: 'anonymous-type', members }
+}
+
+module.exports = type

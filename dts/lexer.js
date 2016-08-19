@@ -12,6 +12,7 @@ module.exports = function (s) {
 		.token('}', /\}/)
 		.token('[', /\[/)
 		.token(']', /\]/)
+		.token('=>', /=>/)
 		.token('=', /=/)
 		.token('.', /\./)
 		.token('*', /\*/)
@@ -21,7 +22,6 @@ module.exports = function (s) {
 		.token(',', /,/)
 		.token(';', /;/)
 
-		.token('any', /any\s+/)
 		.token('as', /as\s+/)
 		.token('declare', /declare\s+/)
 		.token('export', /export\s+/)
@@ -36,7 +36,7 @@ module.exports = function (s) {
 		.token('typeof', /typeof\s+/)
 		.token('var', /var/)
 
-		.token('ID', /[A-Za-z0-9_$]+/)
+		.token('ID', /[A-Za-z_$][A-Za-z0-9_$]*/)
 		.token('STRING', /"((?:\\"|[^"\r\n])*)"/)
 		.token('REFERENCE_COMMENT', /\/\/\/\s*<reference\s*path=["']([^'"]*)["']\s+\/>[^\r\n]*/)
 		// .token('LF', /\r?\n/)
