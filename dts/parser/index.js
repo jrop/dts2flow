@@ -9,6 +9,7 @@ function parse(lexer) {
 		refs: refs(lexer),
 		statements: statements(lexer),
 	}
+	lexer.expect('$EOF')
 	return file
 }
 

@@ -1,6 +1,6 @@
 {
-  "name": "dts-parser",
-  "version": "1.0.0",
+  "name": "dts2flow",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "perplex": "^0.1.1"
+    "perplex": "^0.2.0"
   },
   "devDependencies": {
     "eslint": "^3.3.1"
