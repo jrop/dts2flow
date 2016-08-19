@@ -43,7 +43,7 @@ function oneType(lexer) {
 		id += lexer.expect('ID').match
 	}
 
-	id += generics(lexer)
+	const _generics = generics(lexer)
 
 	let array = false
 	if (lexer.peek().type == '[') {
@@ -52,7 +52,7 @@ function oneType(lexer) {
 		lexer.expect(']')
 	}
 
-	return { type: 'type-id', id, array }
+	return { type: 'type-id', id, generics: _generics, array }
 }
 
 function anonymousType(lexer) {

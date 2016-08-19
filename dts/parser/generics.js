@@ -1,24 +1,25 @@
 'use strict'
 
 //
-// <T, U, V>
-// TODO: nested generics
+// <T, U, V<X,Y>>
 //
 module.exports = function generics(lexer) {
-	let id = ''
+	const type = require('./type')
+
+	const types = [ ]
 	if (lexer.peek().type == '<') {
-		id += lexer.next().match
+		lexer.expect('<')
 		while (true) {
 			if (lexer.peek().type == '>')
 				break
 
-			id += lexer.expect('ID').match
+			types.push(type(lexer))
 			if (lexer.peek().type != ',')
 				break
 			else
-				id += lexer.next().match
+				lexer.expect(',')
 		}
-		id += lexer.expect('>').match
+		lexer.expect('>')
 	}
-	return id
+	return types
 }
