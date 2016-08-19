@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "perplex": "^0.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.3.1"
   }
 }

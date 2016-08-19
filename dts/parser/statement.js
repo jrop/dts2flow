@@ -1,6 +1,12 @@
 'use strict'
 
-const statements = require('./statements')
+const _export = require('./export')
+const _function = require('./function')
+const _import = require('./import')
+const _interface = require('./interface')
+const _namespace = require('./namespace')
+const _module = require('./module')
+const _var = require('./var')
 
 function fmtLocation(token) {
 	const pos = token.position()
@@ -14,22 +20,22 @@ module.exports = function statement(lexer) {
 		lexer.expect('declare')
 		return Object.assign(statement(lexer), { declaration: true })
 	case 'export':
-		return require('./export')(lexer)
+		return _export(lexer)
 	case 'function':
-		return require('./function')(lexer)
+		return _function(lexer)
 	case 'import':
-		return require('./import')(lexer)
+		return _import(lexer)
 	case 'interface':
-		return require('./interface')(lexer)
+		return _interface(lexer)
 	case 'namespace':
-		return require('./namespace')(lexer)
+		return _namespace(lexer)
 	case 'module':
-		return require('./module')(lexer)
+		return _module(lexer)
 	case 'static':
 		lexer.expect('static')
 		return { type: 'static' }
 	case 'var':
-		return require('./var')(lexer)
+		return _var(lexer)
 	default:
 		console.error('Unexpected token: ' + t.type + ' at ' + fmtLocation(t))
 		return null

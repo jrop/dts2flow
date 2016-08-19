@@ -31,7 +31,7 @@ function parameters(lexer) {
 		}
 
 		lexer.expect(':')
-		const paramType = type(lexer) // ^TODO: '.' notation
+		const paramType = type(lexer)
 
 		params.push({ name, optional, type: paramType })
 	}

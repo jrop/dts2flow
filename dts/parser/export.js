@@ -1,8 +1,7 @@
 'use strict'
 
-const statement = require('./statement')
-
 module.exports = function (lexer) {
+	const statement = require('./statement')
 	lexer.expect('export')
 
 	if (lexer.peek().type == '=') {

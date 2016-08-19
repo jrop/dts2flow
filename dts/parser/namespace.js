@@ -1,12 +1,12 @@
 'use strict'
 
 const type = require('./type')
-const statements = require('./statements')
 
 module.exports = function (lexer) {
+	const statements = require('./statements')
 	lexer.expect('namespace')
 
-	const id = type(lexer) // ^TODO: '.' notation...
+	const id = type(lexer)
 	lexer.expect('{')
 	const nsStmts = statements(lexer)
 	lexer.expect('}')
