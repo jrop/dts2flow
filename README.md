@@ -1,6 +1,8 @@
 dts2flow
 ========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jrop/dts2flow.svg)](https://greenkeeper.io/)
+
 A utility for converting `*.d.ts` files to flow declaration files.
 
 THIS IS A WORK IN PROGRESS AND IS NOT CURRENTLY (ANYWHERE) NEAR COMPLETE.
