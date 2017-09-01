@@ -12,10 +12,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "perplex": "^0.2.0"
+    "perplex": "^0.10.2"
   },
   "devDependencies": {
-    "eslint": "^3.3.1",
+    "eslint": "^4.5.0",
     "istanbul": "^0.4.4",
     "mocha": "^3.0.2"
   }
